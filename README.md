@@ -3,7 +3,14 @@ Build your own RAG-based Chatbot for Public Administration and run them locally
 <p align ="center">
   <img src="assets\overview.png" width="600">
 </p>
-##Overview of the App
+
+## Overview of the App
+This app showcases a growing collection of LLM minimum working examples.
+
+Current examples include:
+- Chatbot
+- File Q&A
+
 ## Prerequisites
 ```sh
 pip install -r requirements.txt
