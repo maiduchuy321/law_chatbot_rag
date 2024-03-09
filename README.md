@@ -28,5 +28,5 @@ To do this, click on the `API Key` icon and then click on `Create API Key` (make
 
 ## Run it locally
 ```sh
-streamlit run app.py
+streamlit run Hello.py
 ```
