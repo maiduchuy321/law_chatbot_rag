@@ -6,14 +6,11 @@ from langchain.memory import ConversationBufferMemory, StreamlitChatMessageHisto
 
 #sidebar
 with st.sidebar:
-    st.title('🦙💬Chatbot')
-
     # Set LangSmith environment variables
     os.environ["LANGCHAIN_TRACING_V2"] = "true"
     os.environ["LANGCHAIN_ENDPOINT"] = "https://api.smith.langchain.com"
     # Add the toggle for LangSmith API key source
     use_secret_key = st.sidebar.toggle(label="Using LangSmith", value=False)
-
     # Conditionally set the project name based on the toggle
     if not use_secret_key:
         os.environ["LANGCHAIN_PROJECT"] = "Streamlit Demo"
@@ -40,7 +37,6 @@ with st.sidebar:
     if langchain_api_key is not None:
         os.environ["LANGCHAIN_API_KEY"] = langchain_api_key
 
-    
     if "last_run" not in st.session_state:
         st.session_state["last_run"] = "some_initial_value"
 
@@ -57,7 +53,7 @@ with st.sidebar:
         llm = 'vilm/vinallama-7b-chat-GGUF'
 
     temperature_option = st.sidebar.slider('temperature', min_value=0.01, max_value=5.0, value=0.1, step=0.01)
-    n_gpu_layers_option = st.sidebar.slider('n_gpu_layers', min_value=1, max_value=40, value=40, step=1)
+    n_gpu_layers_option = st.sidebar.slider('n_gpu_layers', min_value=1, max_value=40, value=20, step=1)
     n_batch_option = st.sidebar.slider('n_batch', min_value=64, max_value=2048, value=1024, step=8)
     top_p_option = st.sidebar.slider('top_p', min_value=0.01, max_value=1.0, value=0.9, step=0.01)
     max_length_option = st.sidebar.slider('max_length', min_value=64, max_value=2048, value=2000, step=8)
@@ -68,12 +64,17 @@ with st.sidebar:
         memory.clear()
     st.button('Xóa lịch sử cuộc trò chuyện', on_click=clear_chat_history)
 
-    "[View the source code](https://github.com/streamlit/llm-examples/blob/main/Chatbot.py)"
+    "[View the source code](https://github.com/maiduchuy321/law_chatbot_rag)"
 
+memory = ConversationBufferMemory(
+    chat_memory=StreamlitChatMessageHistory(key="langchain_messages"),
+    return_messages=True,
+    memory_key="chat_history",
+)
 
 
 #main panel
-st.title("💬 Chatbot hỏi đáp văn bản pháp luật")
+st.title("💬Chatbot for Public Administration")
 st.markdown("___")
 # Check if the LangSmith API key is provided
 if not langchain_api_key or langchain_api_key.strip() == "Your_LangSmith_Key_Here":
