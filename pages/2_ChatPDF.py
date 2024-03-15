@@ -10,7 +10,7 @@ st.set_page_config(page_title="ChatPDF")
 os.environ["LANGCHAIN_TRACING_V2"] = "true"
 os.environ["LANGCHAIN_ENDPOINT"] = "https://api.smith.langchain.com"
 os.environ["LANGCHAIN_PROJECT"] = "chatPDF"
-os.environ["LANGCHAIN_API_KEY"] = "YOUR_API_KEY"
+os.environ["LANGCHAIN_API_KEY"] = "API_KEY"
 def display_messages():
     st.subheader("Chat")
     for i, (msg, is_user) in enumerate(st.session_state["messages"]):
