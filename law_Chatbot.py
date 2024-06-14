@@ -22,7 +22,7 @@ with st.sidebar:
 
     # Conditionally get the API key based on the toggle
     if not use_secret_key:
-        langSmith_api_key = "LANGMITH_API_KEY"  # assuming it's stored under this key in secrets
+        langSmith_api_key = "ls__2a1575776dde415382ce0317c3432eed"  # assuming it's stored under this key in secrets
     else:
         langSmith_api_key = st.sidebar.text_input(
             "👇 Add your LangSmith Key",
@@ -49,6 +49,8 @@ with st.sidebar:
                                                                 key='selected_model')
     if selected_model == 'ggml-vistral-7B-chat-q4_1':
         llm = 'I:/Hoc/do an/model/ggml-vistral-7B-chat-q4_1.gguf'
+    elif selected_model == 'ggml-vistral-7B-chat-q8':
+        llm = 'uonlp/Vistral-7B-Chat-gguf/ggml-vistral-7B-chat-q8.gguf'
     else:
         llm = 'vilm/vinallama-7b-chat-GGUF'
 

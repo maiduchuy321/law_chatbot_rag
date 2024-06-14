@@ -27,6 +27,9 @@ To do this, click on the `API Key` icon and then click on `Create API Key` (make
 </p>
 
 ## Run it locally
+With ```sh1_Chatbot_for_Public_Administration.py``` 
+Run file in folder create_Vectorstores first
+And run
 ```sh
 streamlit run Hello.py
 ```

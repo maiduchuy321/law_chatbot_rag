@@ -1,12 +1,8 @@
+import os
 from langchain_community.llms import LlamaCpp
-from langchain.schema.runnable import RunnablePassthrough
 from langchain.prompts import PromptTemplate
-from langchain.callbacks.manager import CallbackManager
-from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
-from langchain.chains import LLMChain
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_community.vectorstores import Chroma
-import os
 from langchain.chains import RetrievalQA
 
 class RAG:
@@ -39,9 +35,10 @@ class RAG:
     # Read tu VectorDB
     def read_vectors_db(self):
         #Load Model Embedding
-        embedding_model = HuggingFaceEmbeddings(model_name="keepitreal/vietnamese-sbert")
+        embeddings=HuggingFaceEmbeddings(model_name="bkai-foundation-models/vietnamese-bi-encoder")
         vector_db_path = "vectorstores/db_Chroma_json"
-        db_chroma = Chroma(persist_directory=vector_db_path, embedding_function=embedding_model)
+        db_chroma = Chroma(persist_directory=vector_db_path, embedding_function=embeddings)
+        
         return db_chroma
 
     # Tao qa chain
@@ -49,7 +46,7 @@ class RAG:
         llm_chain = RetrievalQA.from_chain_type(
             llm = llm,
             chain_type= "stuff",
-            retriever = db.as_retriever(search_type="similarity", search_kwargs = {"k":3}, max_tokens_limit=1024),
+            retriever = db.as_retriever(search_type="similarity", search_kwargs = {"k":3}),
             return_source_documents = True,
             chain_type_kwargs= {'prompt': prompt}
         )
@@ -72,7 +69,6 @@ class RAG:
 
         response = llm_chain.invoke({"query":prompt_input})
         return response
-
 
 
 
